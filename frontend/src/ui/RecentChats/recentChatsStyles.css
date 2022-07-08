@@ -1,0 +1,56 @@
+#recentChatsContainer {
+  height: 100vh;
+  background-color: #333333;
+  width: 300px;
+}
+
+.RecentChatLineItem {
+  background-color: rgba(236, 236, 236, 0.1);
+  height: 56px;
+  padding: 6px 12px;
+  margin: 3px 0;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 4px;
+  display: flex;
+}
+
+
+.RecentChatLineItem:hover, .RecentChatLineItem:focus {
+  cursor: pointer;
+  background-color: rgba(236, 236, 236, 0.2);
+}
+
+
+.activeRecentChatLineItem {
+  background-color: rgba(160, 99, 224, 0.4);
+}
+
+
+.activeRecentChatLineItem:hover {
+  background-color: rgba(160, 99, 224, 0.4);
+}
+
+
+.recentChatLineItemAvatarWrapper {
+  width: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.recentChatLineItemDetailsWrapper {
+  width: 220px;
+  align-items: center;
+  padding: 2px;
+}
+
+.RecentChatLineItem h4 {
+  font-size: 16px;
+}
+
+.RecentChatLineItem p {
+  font-size: 14px;
+  color: #adadad;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; 
+}
