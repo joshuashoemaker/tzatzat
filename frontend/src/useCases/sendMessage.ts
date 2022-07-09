@@ -1,6 +1,8 @@
 import Preferences from "../entities/Preferences/Preferences"
 
 import { SendMessage } from '../../wailsjs/go/main/App'
+import { ipc } from '../../wailsjs/go/models'
+import { LogPrint } from "../../wailsjs/runtime/runtime"
 
 type sendMessageRequest = {
   chatId: string,
@@ -8,7 +10,7 @@ type sendMessageRequest = {
 }
 
 const sendMessage = async (props: sendMessageRequest) => {
-  const messageProps =  {
+  const messageProps = {
     id: Math.random().toString(),
     chatId: props.chatId,
     content: props.content,
@@ -17,12 +19,17 @@ const sendMessage = async (props: sendMessageRequest) => {
   }
 
   const { chatId, content, senderUserId, datetime } = messageProps
-  const message = SendMessage(chatId, content, senderUserId, datetime.toString())
+  const message = SendMessage(
+    new ipc.SendMessageRequest({
+      id: 'vvsvsfvfs',
+      chatId,
+      content,
+      senderUserId,
+      datetime: datetime.toString()
+    })
+  )
 
-  const sentMessageEvent = new CustomEvent('receivedMessage', {
-    detail: { messageProps }
-  })
-  document.dispatchEvent(sentMessageEvent)
+    LogPrint("messageREquest returned from GO:  " + JSON.stringify(await message, null, 2))
 }
 
 export default sendMessage

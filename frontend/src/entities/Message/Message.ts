@@ -2,7 +2,7 @@ type messageConstructorProps = {
   id: string,
   chatId: string
   content: string,
-  datetime: Date,
+  datetime: string,
   senderUserId: string
 }
 
@@ -10,7 +10,7 @@ class Message {
   id: string
   chatId: string
   content: string
-  datetime: Date
+  datetime: string
   senderUserId: string
 
   constructor (props: messageConstructorProps) {

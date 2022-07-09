@@ -26,7 +26,7 @@ function ChatThread (props: { chat: Chat }) {
         </div>
         <p>{ m.content }</p>
       </div>
-      <small className={getThreadDateClassName()}>{ m.datetime.toLocaleDateString() } { m.datetime.toLocaleTimeString() }</small>
+      <small className={getThreadDateClassName()}>{ new Date(m.datetime).toLocaleDateString() } { new Date(m.datetime).toLocaleTimeString() }</small>
     </div>
   })
 

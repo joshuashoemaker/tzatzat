@@ -2,17 +2,16 @@ package main
 
 import (
 	"context"
-	"fmt"
+	chat "tzat/core/Chat"
+	ipc "tzat/ipc"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
-// App struct
 type App struct {
 	ctx context.Context
 }
 
-// NewApp creates a new App application struct
 func NewApp() *App {
 	return &App{}
 }
@@ -23,21 +22,21 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
+func (a *App) SendMessage(messageRequest ipc.SendMessageRequest) ipc.SendMessageRequest {
+	runtime.EventsEmit(a.ctx, "receivedMessage", messageRequest)
+
+	chatCollection := chat.GetCollection()
+	newMessage := chat.Message{
+		ChatId:       messageRequest.ChatId,
+		Content:      messageRequest.Content,
+		Datetime:     messageRequest.Datetime,
+		SenderUserId: messageRequest.SenderUserId,
+	}
+	chatCollection.AddMessageToChat(newMessage)
+
+	return messageRequest
 }
 
-type MessageRequest struct {
-	id           string
-	chatId       string
-	content      string
-	datetime     string
-	senderUserId string
-}
-
-func (a *App) SendMessage(chatId string, content string, senderUserId string, datetime string) string {
-	var val string = "TEST RESPONSE"
-	runtime.EventsEmit(a.ctx, "receivedMessage")
-	return val
+func (a *App) GetRecentChats() []ipc.RecentChat {
+	return ipc.GetRecentChats()
 }

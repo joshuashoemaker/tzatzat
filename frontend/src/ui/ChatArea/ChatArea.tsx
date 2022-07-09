@@ -5,11 +5,16 @@ import './chatAreaStyles.css'
 import ChatTextEditor from './ChatTextEditor'
 
 function ChatArea (props: { chatId: string }) {
-  const activeChat = ChatStore.chats.find(c => c.id === props.chatId) as Chat
+  const activeChat = ChatStore.chats.find(c => c.id === props.chatId)
   
   return <div id="ChatArea">
-    <ChatThread chat={activeChat} />
-    <ChatTextEditor chatId={activeChat.id} />
+    {activeChat 
+      ? <div>
+          <ChatThread chat={new Chat({ id: 'QWE', messages: [], users: [] })} />
+          <ChatTextEditor chatId={activeChat.id} />
+        </div>
+      : '' }
+    
   </div>
 }
 

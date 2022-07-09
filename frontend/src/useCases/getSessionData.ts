@@ -17,7 +17,7 @@ const getSessionDataFromApi = () => {
     id: m.id,
     chatId: m.chatId,
     content: m.content,
-    datetime: new Date(m.datetime),
+    datetime: m.datetime,
     senderUserId: m.senderUserId
   }))
 

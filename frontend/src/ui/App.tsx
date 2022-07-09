@@ -1,35 +1,36 @@
 import { useState } from 'react';
-import initializeData from '../useCases/initializeData';
-import RecentChats from './RecentChats/RecentChats';
-import ChatStore from '../entities/Chat/ChatStore';
 import ChatArea from './ChatArea/ChatArea';
-import Message from '../entities/Message/Message';
-
-import { EventsOn } from '../../wailsjs/runtime/runtime'
-
-import './App.css';
+import RecentChats from './RecentChats/RecentChats';
 import MessageService from '../services/MessageService';
 
-initializeData()
+import { EventsOn, LogPrint } from '../../wailsjs/runtime/runtime'
+import { ipc } from '../../wailsjs/go/models'
+import { GetRecentChats } from '../../wailsjs/go/main/App'
+
+import './App.css';
 
 let testCallback: Function = () => {console.log('test callback')}
-document.addEventListener('receivedMessage', (e: any) => {
-  console.log(e)
-  MessageService.addMessageToChat(new Message(e.detail.messageProps), testCallback)  
+EventsOn('receivedMessage', (data: ipc.SendMessageRequest) => {
+  MessageService.sendMessageRequest({
+    chatId: data.chatId,
+    content: data.content,
+    datetime: data.datetime,
+    senderUserId: data.senderUserId
+  }, testCallback)
 })
 
-
 function App() {
-  const [recentChatLineItems, setRecentChatLineItems] = useState(ChatStore.recentChats);
-  const [activeChatId, setActiveChatId] = useState(ChatStore.chats[0].id)
+  const [recentChatLineItems, setRecentChatLineItems] = useState([] as ipc.RecentChat[]);
+  const [activeChatId, setActiveChatId] = useState('')
 
-  testCallback = () => {
-    // setRecentChatLineItems(ChatStore.recentChats)
+  setTimeout(async () => {
+    LogPrint('Timeout call')
+    setRecentChatLineItems(await GetRecentChats())
+  }, 3000);
+
+  testCallback = async () => {
+    setRecentChatLineItems(await GetRecentChats())
   }
-
-  EventsOn('receivedMessage', (data: any) => {
-    setRecentChatLineItems(ChatStore.recentChats)
-  })
 
   return (
     <div id="App">

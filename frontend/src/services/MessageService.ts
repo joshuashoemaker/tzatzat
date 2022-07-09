@@ -1,10 +1,16 @@
-import ChatStore from "../entities/Chat/ChatStore";
-import Message from "../entities/Message/Message";
+import { SendMessage } from "../../wailsjs/go/main/App";
+import { ipc } from "../../wailsjs/go/models";
+
+type sendMessageRequestProps = {
+  chatId: string,
+  content: string
+  datetime: string,
+  senderUserId: string
+}
 
 class MessageService {
-  static addMessageToChat (message: Message, callback?: Function) {
-    const chatToUpdateIndex = ChatStore.chats.findIndex(c => c.id === message.chatId)
-    ChatStore.chats[chatToUpdateIndex].messages.push(message)
+  static sendMessageRequest (sendMessageRquest: sendMessageRequestProps, callback?: Function) {
+    SendMessage(new ipc.SendMessageRequest(sendMessageRquest))
     if (callback) callback()
   }
 }
