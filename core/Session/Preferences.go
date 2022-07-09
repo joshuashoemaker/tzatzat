@@ -1,4 +1,4 @@
-package Session
+package session
 
 type Preferences struct {
 	UserId string

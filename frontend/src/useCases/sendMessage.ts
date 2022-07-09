@@ -1,7 +1,6 @@
-import Preferences from "../entities/Preferences/Preferences"
-
 import { SendMessage } from '../../wailsjs/go/main/App'
 import { ipc } from '../../wailsjs/go/models'
+import { GetUserId } from '../../wailsjs/go/main/App'
 import { LogPrint } from "../../wailsjs/runtime/runtime"
 
 type sendMessageRequest = {
@@ -14,7 +13,7 @@ const sendMessage = async (props: sendMessageRequest) => {
     id: Math.random().toString(),
     chatId: props.chatId,
     content: props.content,
-    senderUserId: Preferences.userId,
+    senderUserId: GetUserId(),
     datetime: new Date()
   }
 

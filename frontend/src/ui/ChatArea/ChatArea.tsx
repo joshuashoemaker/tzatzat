@@ -1,16 +1,24 @@
-import ChatStore from '../../entities/Chat/ChatStore'
-import Chat from '../../entities/Chat/Chat'
+
+import { useState } from 'react';
 import ChatThread from './ChatThread'
-import './chatAreaStyles.css'
 import ChatTextEditor from './ChatTextEditor'
+import { GetChatById } from '../../../wailsjs/go/main/App'
+import { ipc } from '../../../wailsjs/go/models'
+import './chatAreaStyles.css'
 
 function ChatArea (props: { chatId: string }) {
-  const activeChat = ChatStore.chats.find(c => c.id === props.chatId)
+  const [activeChat, setActiveChat] = useState({} as ipc.Chat);
+
+  if (!activeChat.id) {
+    GetChatById(props.chatId).then(c => {
+      setActiveChat(c)
+    })
+  }
   
   return <div id="ChatArea">
-    {activeChat 
+    {activeChat.id
       ? <div>
-          <ChatThread chat={new Chat({ id: 'QWE', messages: [], users: [] })} />
+          <ChatThread chat={activeChat} />
           <ChatTextEditor chatId={activeChat.id} />
         </div>
       : '' }

@@ -1,7 +1,7 @@
 package chat
 
 import (
-	"tzat/core/Session"
+	session "tzat/core/Session"
 )
 
 type ChatCollection struct {
@@ -18,7 +18,7 @@ func GetCollection() *ChatCollection {
 }
 
 func (collection *ChatCollection) GetRecentChats() []RecentChat {
-	loggedInUserId := Session.GetPreferences().UserId
+	loggedInUserId := session.GetPreferences().UserId
 	var recentChats []RecentChat
 
 	for _, c := range collection.Chats {

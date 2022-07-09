@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	chat "tzat/core/Chat"
+	session "tzat/core/Session"
 	ipc "tzat/ipc"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -39,4 +40,12 @@ func (a *App) SendMessage(messageRequest ipc.SendMessageRequest) ipc.SendMessage
 
 func (a *App) GetRecentChats() []ipc.RecentChat {
 	return ipc.GetRecentChats()
+}
+
+func (a *App) GetChatById(id string) ipc.Chat {
+	return ipc.GetChatById(id)
+}
+
+func (a *App) GetUserId() string {
+	return session.GetPreferences().UserId
 }

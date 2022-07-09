@@ -1,15 +1,12 @@
 import { Avatar } from '@mui/material'
-import Chat from '../../entities/Chat/Chat'
-import Preferences from '../../entities/Preferences/Preferences'
+import { ipc } from '../../../wailsjs/go/models'
 
-const loggedInUserID = Preferences.userId
+const loggedInUserID = 'QWERTY' // TODO: replace with actual userId from GO
 
-function ChatThread (props: { chat: Chat }) {
+function ChatThread (props: { chat: ipc.Chat }) {
   const { users, messages } = props.chat
 
-
   const messageElements = messages.map(m => {
-
   const getThreadMessageClassName = () => {
     return `threadMessage ${m.senderUserId !== loggedInUserID ? 'receivedMessage' : ''}`
   }
@@ -22,7 +19,7 @@ function ChatThread (props: { chat: Chat }) {
     return <div key={m.id} className={getThreadMessageClassName()}>
       <div className='messageContainer'>
         <div className='messageAvatar'>
-          <Avatar alt={senderUser?.displayName}>{senderUser?.initials}</Avatar>
+          <Avatar alt={senderUser?.displayName}>{/* senderUser?.initials */}</Avatar>
         </div>
         <p>{ m.content }</p>
       </div>
