@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import ChatThread from './ChatThread'
 import ChatTextEditor from './ChatTextEditor'
-import { GetChatById } from '../../../wailsjs/go/main/App'
+import { GetChatById } from '../../../wailsjs/go/ipc/Channel'
 import { ipc } from '../../../wailsjs/go/models'
 import './chatAreaStyles.css'
 

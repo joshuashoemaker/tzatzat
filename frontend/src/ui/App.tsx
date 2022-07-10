@@ -5,7 +5,7 @@ import MessageService from '../services/MessageService';
 
 import { EventsOn } from '../../wailsjs/runtime/runtime'
 import { ipc } from '../../wailsjs/go/models'
-import { GetRecentChats } from '../../wailsjs/go/main/App'
+import { GetRecentChats } from '../../wailsjs/go/ipc/Channel'
 
 import './App.css';
 

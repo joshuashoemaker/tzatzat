@@ -11,7 +11,7 @@ type RecentChat struct {
 	LastMessage Message `json:"lastMessage"`
 }
 
-func GetRecentChats() []RecentChat {
+func (c *Channel) GetRecentChats() []RecentChat {
 	recentChatsInCollection := chat.GetCollection().GetRecentChats()
 	var recentChatsResponse []RecentChat
 
@@ -39,7 +39,7 @@ func GetRecentChats() []RecentChat {
 	return recentChatsResponse
 }
 
-func GetChatById(id string) Chat {
+func (c *Channel) GetChatById(id string) Chat {
 	chatsInCollection := chat.GetCollection().Chats
 	var foundChat chat.Chat
 

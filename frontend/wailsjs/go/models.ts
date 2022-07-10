@@ -1,23 +1,5 @@
 export namespace ipc {
 	
-	export class SendMessageRequest {
-	    chatId: string;
-	    content: string;
-	    datetime: string;
-	    senderUserId: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new SendMessageRequest(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.chatId = source["chatId"];
-	        this.content = source["content"];
-	        this.datetime = source["datetime"];
-	        this.senderUserId = source["senderUserId"];
-	    }
-	}
 	export class User {
 	    id: string;
 	    displayName: string;
@@ -120,6 +102,24 @@ export namespace ipc {
 		    }
 		    return a;
 		}
+	}
+	export class SendMessageRequest {
+	    chatId: string;
+	    content: string;
+	    datetime: string;
+	    senderUserId: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SendMessageRequest(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.chatId = source["chatId"];
+	        this.content = source["content"];
+	        this.datetime = source["datetime"];
+	        this.senderUserId = source["senderUserId"];
+	    }
 	}
 
 }

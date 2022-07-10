@@ -1,6 +1,6 @@
-import { SendMessage } from '../../wailsjs/go/main/App'
+import { SendMessage } from '../../wailsjs/go/ipc/Channel'
 import { ipc } from '../../wailsjs/go/models'
-import { GetUserId } from '../../wailsjs/go/main/App'
+import { GetUserId } from '../../wailsjs/go/ipc/Channel'
 import { LogPrint } from "../../wailsjs/runtime/runtime"
 
 type sendMessageRequest = {

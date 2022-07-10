@@ -1,4 +1,4 @@
-import { SendMessage } from "../../wailsjs/go/main/App";
+import { SendMessage } from "../../wailsjs/go/ipc/Channel";
 import { ipc } from "../../wailsjs/go/models";
 
 type sendMessageRequestProps = {

@@ -2,7 +2,8 @@ package main
 
 import (
 	"embed"
-	chat "tzat/core/Chat"
+	app "tzat/core/App"
+	Channel "tzat/ipc"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -13,8 +14,8 @@ var assets embed.FS
 
 func main() {
 	// Create an instance of the app structure
-	app := NewApp()
-	chatCollection := chat.GetCollection()
+	app := app.GetInstance()
+	ipcChannel := Channel.GetInstance()
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -23,10 +24,10 @@ func main() {
 		Height:           768,
 		Assets:           assets,
 		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
+		OnStartup:        app.Startup,
 		Bind: []interface{}{
 			app,
-			chatCollection,
+			ipcChannel,
 		},
 	})
 
