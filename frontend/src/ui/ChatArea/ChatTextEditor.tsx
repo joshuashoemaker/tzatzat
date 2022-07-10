@@ -1,12 +1,11 @@
-import { TextareaAutosize } from '@mui/material';
 import { useState } from 'react';
-import sendMessage from '../../useCases/sendMessage';
+import MessageService from '../../services/MessageService';
 
 function ChatTextEditor (props: { chatId: string }) {
   const [textEditorValue, setTextEditorValue] = useState('')
 
   const onSubmit = () => {
-    sendMessage({
+    MessageService.sendMessageRequest({
       content: textEditorValue,
       chatId: props.chatId
     })
@@ -36,7 +35,6 @@ function ChatTextEditor (props: { chatId: string }) {
 
 
   return <div id='ChatTextEditor'>
- {/* value={textEditorValue} onKeyDown={onKeyDownHandler} */}
     <textarea value={textEditorValue} onChange={onChangeHandler} onKeyDown={onKeyDownHandler} />
   </div>
 }
