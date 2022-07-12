@@ -2,7 +2,6 @@ package ipc
 
 import (
 	chat "tzat/core/Chat"
-	session "tzat/core/Session"
 )
 
 type RecentChat struct {
@@ -66,13 +65,11 @@ func (c *Channel) GetChatById(id string) Chat {
 
 	var senderUsersForResponse []User
 	for _, u := range foundChat.Users {
-		if u.Id != session.GetPreferences().UserId {
-			senderUsersForResponse = append(senderUsersForResponse, User{
-				Id:                   u.Id,
-				DisplayName:          u.DisplayName,
-				ProfilePictureSource: u.ProfilePictureSource,
-			})
-		}
+		senderUsersForResponse = append(senderUsersForResponse, User{
+			Id:                   u.Id,
+			DisplayName:          u.DisplayName,
+			ProfilePictureSource: u.ProfilePictureSource,
+		})
 	}
 
 	chatResponse := Chat{

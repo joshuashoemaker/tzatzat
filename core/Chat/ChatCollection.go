@@ -10,6 +10,14 @@ type ChatCollection struct {
 
 var chatColelctionInstance *ChatCollection
 
+func InitializeChatCollection() {
+	if chatColelctionInstance != nil {
+		return
+	}
+
+	chatColelctionInstance = &ChatCollection{}
+}
+
 func GetCollection() *ChatCollection {
 	if chatColelctionInstance == nil {
 		chatColelctionInstance = &ChatCollection{}
@@ -22,7 +30,11 @@ func (collection *ChatCollection) GetRecentChats() []RecentChat {
 	var recentChats []RecentChat
 
 	for _, c := range collection.Chats {
-		lastMessage := c.Messages[len(c.Messages)-1]
+		var lastMessage Message
+
+		if len(c.Messages) > 0 {
+			lastMessage = c.Messages[len(c.Messages)-1]
+		}
 
 		var senderUsers []User
 		for _, u := range c.Users {
@@ -39,6 +51,10 @@ func (collection *ChatCollection) GetRecentChats() []RecentChat {
 	}
 
 	return recentChats
+}
+
+func (collection *ChatCollection) AddChat(chat Chat) {
+	collection.Chats = append(collection.Chats, chat)
 }
 
 func (collection *ChatCollection) AddMessageToChat(message Message) {

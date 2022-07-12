@@ -8,4 +8,6 @@ export function GetRecentChats():Promise<Array<ipc.RecentChat>>;
 
 export function GetUserId():Promise<string>;
 
+export function GetUserPreferences():Promise<ipc.Preferences>;
+
 export function SendMessage(arg1:ipc.SendMessageRequest):Promise<ipc.SendMessageRequest>;

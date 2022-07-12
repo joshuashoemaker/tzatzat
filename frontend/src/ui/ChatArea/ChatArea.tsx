@@ -9,7 +9,7 @@ import './chatAreaStyles.css'
 function ChatArea (props: { chatId: string }) {
   const [activeChat, setActiveChat] = useState({} as ipc.Chat);
 
-  if (!activeChat.id) {
+  if (!activeChat.id && props.chatId) {
     GetChatById(props.chatId).then(c => {
       setActiveChat(c)
     })

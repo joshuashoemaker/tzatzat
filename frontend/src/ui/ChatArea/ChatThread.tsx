@@ -1,25 +1,42 @@
 import { Avatar } from '@mui/material'
+import { useState } from 'react'
+import { GetChatById } from '../../../wailsjs/go/ipc/Channel'
 import { ipc } from '../../../wailsjs/go/models'
+import { EventsOn, LogPrint } from '../../../wailsjs/runtime/runtime'
+import PreferenceService from '../../services/PreferenceService'
+import { getUserInitials } from '../../utils/utils'
 
-const loggedInUserID = 'QWERTY' // TODO: replace with actual userId from GO
+const loggedInUserID = PreferenceService.userId
+
+let updateChatThreadCallback: Function = () => {LogPrint('updateRecentChatsCallback() has not been defined')}
+EventsOn('receivedMessage', () => {
+  updateChatThreadCallback()
+})
 
 function ChatThread (props: { chat: ipc.Chat }) {
-  const { users, messages } = props.chat
+  const { id, users } = props.chat
+  const [messages, setMessages] = useState([] as ipc.Message[])
 
-  const messageElements = messages.map(m => {
-  const getThreadMessageClassName = () => {
-    return `threadMessage ${m.senderUserId !== loggedInUserID ? 'receivedMessage' : ''}`
+  updateChatThreadCallback = async () => {
+    setMessages((await GetChatById(id)).messages || [])
   }
 
-  const getThreadDateClassName = () => {
-    return `messageDate ${m.senderUserId !== loggedInUserID ? 'receiveMessageDate' : ''}`
-  }
+  if (id && messages.length === 0) updateChatThreadCallback()
+
+  const getMessageElements = () => messages.map(m => {
+    const getThreadMessageClassName = () => {
+      return `threadMessage ${m.senderUserId !== loggedInUserID ? 'receivedMessage' : ''}`
+    }
+
+    const getThreadDateClassName = () => {
+      return `messageDate ${m.senderUserId !== loggedInUserID ? 'receiveMessageDate' : ''}`
+    }
 
     const senderUser = users.find(u => u.id === m.senderUserId)
     return <div key={m.id} className={getThreadMessageClassName()}>
       <div className='messageContainer'>
         <div className='messageAvatar'>
-          <Avatar alt={senderUser?.displayName}>{/* senderUser?.initials */}</Avatar>
+          <Avatar alt={senderUser?.displayName}>{getUserInitials(senderUser?.displayName)}</Avatar>
         </div>
         <p>{ m.content }</p>
       </div>
@@ -28,7 +45,7 @@ function ChatThread (props: { chat: ipc.Chat }) {
   })
 
   return <div id="ChatThread">
-    { messageElements }
+    { messages ? getMessageElements() : '' }
   </div>
 
 }

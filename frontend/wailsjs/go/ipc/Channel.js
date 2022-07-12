@@ -14,6 +14,10 @@ export function GetUserId() {
   return window['go']['ipc']['Channel']['GetUserId']();
 }
 
+export function GetUserPreferences() {
+  return window['go']['ipc']['Channel']['GetUserPreferences']();
+}
+
 export function SendMessage(arg1) {
   return window['go']['ipc']['Channel']['SendMessage'](arg1);
 }

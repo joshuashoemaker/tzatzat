@@ -103,6 +103,20 @@ export namespace ipc {
 		    return a;
 		}
 	}
+	export class Preferences {
+	    userId: string;
+	    userDisplayName: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Preferences(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.userId = source["userId"];
+	        this.userDisplayName = source["userDisplayName"];
+	    }
+	}
 	export class SendMessageRequest {
 	    chatId: string;
 	    content: string;
