@@ -54,3 +54,12 @@
   white-space: nowrap;
   overflow: hidden; 
 }
+
+#OptionBar {
+  color: #a063e0;
+  height: 30px;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

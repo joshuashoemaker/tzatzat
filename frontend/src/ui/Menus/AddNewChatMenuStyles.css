@@ -1,0 +1,15 @@
+#AddNewChatMenu {
+  color: rgb(255, 255, 255);
+  position: absolute;
+  background-color: #333333;
+  box-shadow: rgba(0, 0, 0, 0.4) 4px 6px 12px;
+  padding: 12px;
+  display: block;
+  width: 340px;
+  height: 300px;
+  top: 40px;
+  left: 260px;
+  border: solid rgba(0, 0, 0, 0.4) 1px;
+  border-radius: 0px 20px;
+  /* text-align: center; */
+}

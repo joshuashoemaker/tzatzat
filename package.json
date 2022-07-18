@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@mui/icons-material": "^5.8.4",
+    "multiselect-react-dropdown": "^2.0.25"
+  }
+}

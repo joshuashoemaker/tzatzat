@@ -1,4 +1,5 @@
 import RecentChatLineItem from './RecentChatLineItem'
+import OptionBar from './OptionBar'
 import { ipc } from '../../../wailsjs/go/models'
 import './recentChatsStyles.css'
 
@@ -16,6 +17,7 @@ function RecentChats (props: { recentChatLineItems: ipc.RecentChat[], activeChat
 )
 
   return <div id='recentChatsContainer'>
+    <OptionBar />
     { chatLineItemElements }
   </div>
 }
