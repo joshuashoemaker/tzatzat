@@ -2,6 +2,7 @@ import RecentChatLineItem from './RecentChatLineItem'
 import OptionBar from './OptionBar'
 import { ipc } from '../../../wailsjs/go/models'
 import './recentChatsStyles.css'
+import { LogPrint } from '../../../wailsjs/runtime/runtime'
 
 function RecentChats (props: { recentChatLineItems: ipc.RecentChat[], activeChatId: string, onClick: Function }) {
   const chatLineItemElements = props.recentChatLineItems.map(item => {
@@ -11,14 +12,17 @@ function RecentChats (props: { recentChatLineItems: ipc.RecentChat[], activeChat
       key={id}
       recentChatInstance={item}
       isActive={isActive}
-      onClick={() => props.onClick(id)}
+      onClick={() => { 
+        LogPrint(id)
+        props.onClick(id)
+      }}
     />
   }
 )
 
   return <div id='recentChatsContainer'>
     <OptionBar />
-    { chatLineItemElements }
+    { props.recentChatLineItems.length ? chatLineItemElements : '' }
   </div>
 }
 

@@ -4,6 +4,7 @@ import (
 	app "tzat/core/App"
 	chat "tzat/core/Chat"
 
+	"github.com/google/uuid"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
@@ -19,6 +20,7 @@ func (c *Channel) SendMessage(messageRequest SendMessageRequest) SendMessageRequ
 
 	chatCollection := chat.GetCollection()
 	newMessage := chat.Message{
+		Id:           uuid.New().String(), // TODO: the id will be handled by the database once the server side is implemented
 		ChatId:       messageRequest.ChatId,
 		Content:      messageRequest.Content,
 		Datetime:     messageRequest.Datetime,

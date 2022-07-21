@@ -43,11 +43,6 @@ func main() {
 		DisplayName: travis.DisplayName,
 	})
 
-	chat.GetCollection().AddChat(chat.Chat{
-		Id:    "XYZ",
-		Users: users,
-	})
-
 	err := wails.Run(&options.App{
 		Title:            "tzat",
 		Width:            1024,

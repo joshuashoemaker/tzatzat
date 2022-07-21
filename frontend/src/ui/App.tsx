@@ -20,7 +20,8 @@ function App() {
   const [orgainizationUsers, setOrganizationUsers] = useState([] as ipc.User[])
 
   updateRecentChatsCallback = async () => {
-    setRecentChatLineItems(await GetRecentChats())
+    const recentChats = await GetRecentChats() || []
+    setRecentChatLineItems(recentChats)
   }
 
   if (!loggedInUserId) {
@@ -29,15 +30,11 @@ function App() {
     })
   }
 
-  if (recentChatLineItems.length === 0) {
-    GetRecentChats().then(chats => {
-      setRecentChatLineItems(chats)
-    })
-  }
+  if (recentChatLineItems.length === 0) updateRecentChatsCallback()
 
   if (orgainizationUsers.length === 0) {
     OrganizationService.getUsers().then(users => {
-      setOrganizationUsers(users)
+      setOrganizationUsers(users || null)
     })
   }
 

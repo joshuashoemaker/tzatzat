@@ -1,5 +1,5 @@
 import { Avatar } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { GetChatById } from '../../../wailsjs/go/ipc/Channel'
 import { ipc } from '../../../wailsjs/go/models'
 import { EventsOn, LogPrint } from '../../../wailsjs/runtime/runtime'
@@ -16,6 +16,8 @@ EventsOn('receivedMessage', () => {
 function ChatThread (props: { chat: ipc.Chat }) {
   const { id, users } = props.chat
   const [messages, setMessages] = useState([] as ipc.Message[])
+
+  useEffect(() => updateChatThreadCallback(), [props.chat.id])
 
   updateChatThreadCallback = async () => {
     setMessages((await GetChatById(id)).messages || [])
