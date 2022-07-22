@@ -24,3 +24,14 @@ func (collection *UserCollection) AddUser(user User) User {
 	collection.Users = append(collection.Users, user)
 	return user
 }
+
+func (collection *UserCollection) GetById(id string) User {
+	var foundUser User
+	for _, u := range collection.Users {
+		if u.Id == id {
+			foundUser = u
+			break
+		}
+	}
+	return foundUser
+}

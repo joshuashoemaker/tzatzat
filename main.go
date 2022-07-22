@@ -24,8 +24,9 @@ func main() {
 	user.InitializeUserCollection()
 
 	joshua := user.GetCollection().AddUser(user.User{
-		Id:          "QWERTY",
-		DisplayName: "Joshua Shoemaker",
+		Id:                   "QWERTY",
+		DisplayName:          "Joshua Shoemaker",
+		ProfilePictureSource: "who knows",
 	})
 
 	travis := user.GetCollection().AddUser(user.User{

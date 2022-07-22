@@ -5,6 +5,9 @@ const styleOverrides = {
   option: {
     color: 'white',
     backgroundColor: 'black'
+  },
+  optionContainer: {
+    backgroundColor: 'black'
   }
 }
 
@@ -27,6 +30,8 @@ function AutoCompleteMultiSelect (props: { options: multiSelectInputOption[], on
     displayValue='display'
     options={props.options}
     style={styleOverrides}
+    avoidHighlightFirstOption={true}
+    placeholder='Who is in this chat?'
   />
 }
 

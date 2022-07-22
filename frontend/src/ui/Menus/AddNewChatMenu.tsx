@@ -2,8 +2,8 @@ import { Button } from '@mui/material'
 import { useState } from 'react'
 import { AddNewChat } from '../../../wailsjs/go/ipc/Channel'
 import { ipc } from '../../../wailsjs/go/models'
-import { LogPrint } from '../../../wailsjs/runtime/runtime'
 import OrganizationService from '../../services/OrganizationService'
+import PreferenceService from '../../services/PreferenceService'
 import AutoCompleteMultiSelect, { multiSelectInputOption } from '../CommonComponents/AutoCompleteMultiSelect'
 import './AddNewChatMenuStyles.css'
 
@@ -23,13 +23,23 @@ function AddNewChatMenu() {
   const getUsers = () => {
     if (users.length !== 0) return
 
-    if (OrganizationService.users.length !== 0) {
-      setUsers(OrganizationService.users)
-    } else {
-      OrganizationService.getUsers().then(users => {
-        setUsers(users)
-      })
+    const loggedInUserId = PreferenceService.userId
+
+    let usersExcludingLoggedInUser = []
+
+    const usersFromOrganizationServices = OrganizationService.users || []
+    if (usersFromOrganizationServices.length !== 0) {
+      usersExcludingLoggedInUser = usersFromOrganizationServices.filter(u => u.id !== loggedInUserId)
+      setUsers(usersExcludingLoggedInUser)
+      return
     }
+
+    OrganizationService.getUsers().then(users => {
+      usersExcludingLoggedInUser = users.filter(u => {
+        return u.id !== PreferenceService.userId
+      })
+      setUsers(usersExcludingLoggedInUser)
+    })
   }
 
   const onChangeHandle = (selectedOptions: multiSelectInputOption[]) => {

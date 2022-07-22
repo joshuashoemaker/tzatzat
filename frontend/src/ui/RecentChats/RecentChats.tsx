@@ -2,7 +2,6 @@ import RecentChatLineItem from './RecentChatLineItem'
 import OptionBar from './OptionBar'
 import { ipc } from '../../../wailsjs/go/models'
 import './recentChatsStyles.css'
-import { LogPrint } from '../../../wailsjs/runtime/runtime'
 
 function RecentChats (props: { recentChatLineItems: ipc.RecentChat[], activeChatId: string, onClick: Function }) {
   const chatLineItemElements = props.recentChatLineItems.map(item => {
@@ -13,7 +12,6 @@ function RecentChats (props: { recentChatLineItems: ipc.RecentChat[], activeChat
       recentChatInstance={item}
       isActive={isActive}
       onClick={() => { 
-        LogPrint(id)
         props.onClick(id)
       }}
     />

@@ -17,13 +17,13 @@ function ChatThread (props: { chat: ipc.Chat }) {
   const { id, users } = props.chat
   const [messages, setMessages] = useState([] as ipc.Message[])
 
-  useEffect(() => updateChatThreadCallback(), [props.chat.id])
+  useEffect(() => { updateChatThreadCallback() }, [props.chat.id])
 
   updateChatThreadCallback = async () => {
     setMessages((await GetChatById(id)).messages || [])
   }
 
-  if (id && messages.length === 0) updateChatThreadCallback()
+  if (id) updateChatThreadCallback()
 
   const getMessageElements = () => messages.map(m => {
     const getThreadMessageClassName = () => {

@@ -5,16 +5,13 @@ import ChatTextEditor from './ChatTextEditor'
 import { GetChatById } from '../../../wailsjs/go/ipc/Channel'
 import { ipc } from '../../../wailsjs/go/models'
 import './chatAreaStyles.css'
-import { LogPrint } from '../../../wailsjs/runtime/runtime';
 
 function ChatArea (props: { chatId: string }) {
   const [activeChat, setActiveChat] = useState({} as ipc.Chat);
 
   useEffect(() => {
     if (props.chatId) {
-      LogPrint('new chat id in use effect: ' + props.chatId)
       GetChatById(props.chatId).then(c => {
-        LogPrint(JSON.stringify(c, null, 2))
         setActiveChat(c)
       })
     }
